@@ -1,0 +1,31 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+      publish_rate: 50  # Hz
+
+    hand_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+      joints:
+        - thumb_proximal_yaw_joint
+        - thumb_proximal_pitch_joint
+        - index_proximal_joint
+        - middle_proximal_joint
+        - ring_proximal_joint
+        - pinky_proximal_joint
+      command_interfaces:
+        - position
+      state_interfaces:
+        - position
+      gains:  # Add PID gains for smoother motion
+        thumb_proximal_yaw_joint: {p: 100, i: 0.01, d: 1.0}
+        thumb_proximal_pitch_joint: {p: 100, i: 0.01, d: 1.0}
+        index_proximal_joint: {p: 100, i: 0.01, d: 1.0}
+        middle_proximal_joint: {p: 100, i: 0.01, d: 1.0}
+        ring_proximal_joint: {p: 100, i: 0.01, d: 1.0}
+        pinky_proximal_joint: {p: 100, i: 0.01, d: 1.0}
+      constraints:
+        goal_time: 1.5       # Time to reach target position
+        stopped_velocity_tolerance: 0.02
